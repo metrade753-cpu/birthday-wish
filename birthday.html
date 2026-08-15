@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 🎂</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    background:
+        radial-gradient(circle, #43004f, #17001e 55%, #050008);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+.startScreen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    background:
+        radial-gradient(circle, #4b0058, #100014);
+    transition: 1s;
+}
+
+.startScreen h2 {
+    font-size: 45px;
+    margin-bottom: 30px;
+    text-shadow:
+        0 0 10px #ff1493,
+        0 0 30px #ff1493,
+        0 0 60px #ff1493;
+    animation: pulse 2s infinite;
+}
+
+.openButton {
+    padding: 18px 45px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff1493, #ff69b4);
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 0 #a20b5e,
+        0 0 30px #ff1493;
+
+    transition: .25s;
+}
+
+.openButton:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow:
+        0 12px 0 #a20b5e,
+        0 0 60px #ff1493;
+}
+
+.openButton:active {
+    transform: scale(.95) translateY(5px);
+}
+
+@keyframes pulse {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================
+   BIRTHDAY CONTENT
+========================= */
+
+.birthday {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    opacity: 0;
+    transform: scale(.2) rotateX(70deg);
+    pointer-events: none;
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.5s cubic-bezier(.17,.67,.2,1.3);
+}
+
+.birthday.show {
+    opacity: 1;
+    transform: scale(1) rotateX(0);
+    pointer-events: auto;
+}
+
+
+/* =========================
+   3D TEXT
+========================= */
+
+h1 {
+    text-align: center;
+    font-size: clamp(45px, 9vw, 115px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: 5px;
+
+    color: white;
+
+    text-shadow:
+        1px 1px 0 #ffb3d9,
+        2px 2px 0 #ff91c9,
+        3px 3px 0 #ff66b5,
+        4px 4px 0 #ff3da5,
+        5px 5px 0 #e91e8f,
+        6px 6px 0 #c41478,
+        7px 7px 0 #9b0d61,
+        0 0 15px #ff4db8,
+        0 0 35px #ff1493,
+        0 0 70px #ff1493;
+
+    animation:
+        textFloat 4s ease-in-out infinite,
+        glow 2s infinite alternate;
+}
+
+@keyframes textFloat {
+    0%,100% {
+        transform: translateY(0) rotateY(-3deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotateY(3deg);
+    }
+}
+
+@keyframes glow {
+    from {
+        filter: brightness(1);
+    }
+    to {
+        filter: brightness(1.5);
+    }
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.subtitle {
+    margin-top: 30px;
+    font-size: clamp(18px, 3vw, 35px);
+    letter-spacing: 6px;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 25px #ff1493,
+        0 0 50px #ff1493;
+
+    animation: pulse 2s infinite;
+}
+
+
+/* =========================
+   HEARTS
+========================= */
+
+.heart {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+
+    background: #ff176f;
+
+    transform: rotate(45deg);
+
+    filter:
+        drop-shadow(0 0 10px #ff176f)
+        drop-shadow(0 0 25px #ff176f);
+
+    animation: heartFloat linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+
+    width: 35px;
+    height: 35px;
+
+    background: #ff176f;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -17px;
+}
+
+.heart::after {
+    left: -17px;
+}
+
+@keyframes heartFloat {
+
+    0% {
+        transform:
+            translateY(110vh)
+            rotate(45deg)
+            scale(.4);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(50vh)
+            translateX(80px)
+            rotate(405deg)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translateY(-20vh)
+            translateX(-80px)
+            rotate(765deg)
+            scale(.7);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   CAKE
+========================= */
+
+.cake {
+    position: absolute;
+
+    bottom: 8%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        scale(.8);
+
+    font-size: 100px;
+
+    filter:
+        drop-shadow(0 0 15px #ff1493)
+        drop-shadow(0 0 35px #ff1493);
+
+    animation: cakeFloat 3s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+
+    0%,100% {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotateY(-5deg);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            translateY(-15px)
+            rotateY(5deg);
+    }
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti {
+    position: absolute;
+
+    width: 10px;
+    height: 20px;
+
+    top: -30px;
+
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+
+    from {
+        transform:
+            translateY(-30px)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .startScreen h2 {
+        font-size: 30px;
+    }
+
+    .openButton {
+        font-size: 18px;
+        padding: 15px 30px;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
+    .cake {
+        font-size: 70px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<div class="startScreen" id="startScreen">
+
+    <h2>🎁 HEY CUTIE TERE LIA AIK SURPRISE HE 🎁</h2>
+
+    <button class="openButton" onclick="openBirthday()">
+        💖 OPEN SURPRISE 💖
+    </button>
+
+</div>
+
+
+<!-- =========================
+     BIRTHDAY
+========================= -->
+
+<div class="birthday" id="birthday">
+
+    <h1>
+        HAPPY<br>
+        BIRTHDAY 
+    </h1>
+
+    <div class="subtitle">
+        🎉 HAVE AN AMAZING DAY 🎉
+    </div>
+
+    <div class="cake">
+        🎂
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   OPEN BIRTHDAY
+========================= */
+
+function openBirthday() {
+
+    const start = document.getElementById("startScreen");
+    const birthday = document.getElementById("birthday");
+
+    /* Hide start screen */
+
+    start.style.opacity = "0";
+    start.style.transform = "scale(1.5)";
+
+    setTimeout(() => {
+        start.style.display = "none";
+    }, 1000);
+
+
+    /* Show birthday */
+
+    setTimeout(() => {
+
+        birthday.classList.add("show");
+
+        createHearts();
+        createConfetti();
+
+    }, 500);
+
+}
+
+
+/* =========================
+   CREATE HEARTS
+========================= */
+
+function createHearts() {
+
+    for(let i = 0; i < 35; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+        heart.style.animationDuration =
+            (6 + Math.random() * 8) + "s";
+
+        heart.style.animationDelay =
+            Math.random() * 6 + "s";
+
+        const size =
+            0.5 + Math.random() * 1.3;
+
+        heart.style.width =
+            35 * size + "px";
+
+        heart.style.height =
+            35 * size + "px";
+
+        document.body.appendChild(heart);
+
+    }
+
+}
+
+
+/* =========================
+   CREATE CONFETTI
+========================= */
+
+function createConfetti() {
+
+    for(let i = 0; i < 150; i++) {
+
+        const piece =
+            document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left =
+            Math.random() * 100 + "%";
+
+        piece.style.animationDuration =
+            (2 + Math.random() * 4) + "s";
+
+        piece.style.animationDelay =
+            Math.random() * 3 + "s";
+
+        piece.style.background =
+            `hsl(${Math.random() * 360}, 100%, 65%)`;
+
+        piece.style.transform =
+            `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(piece);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
